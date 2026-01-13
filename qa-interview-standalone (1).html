@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Interview Study Guide</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // Lucide Icons as SVG components
+        const ChevronDown = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        );
+
+        const ChevronRight = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        );
+
+        const Download = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+        );
+
+        const Edit2 = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+            </svg>
+        );
+
+        const Save = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+        );
+
+        const X = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        );
+
+        const Plus = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        );
+
+        const Trash2 = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+        );
+
+        const QAInterviewTable = () => {
+            const [entries, setEntries] = useState([
+                {
+                    id: 1,
+                    company: 'Google',
+                    category: 'Automation',
+                    level: 'Senior',
+                    question: 'How would you design a test automation framework for microservices?',
+                    candidateAnswer: 'I would use contract testing, implement retry logic, and create service stubs.',
+                    idealAnswer: 'Focus on contract testing (Pact), service virtualization, retry mechanisms with exponential backoff, circuit breakers, and comprehensive monitoring.',
+                    keyTerms: 'contract testing, service mesh, observability, idempotency',
+                    mistakes: 'Not addressing async challenges, ignoring monitoring',
+                    score: 8.5
+                },
+                {
+                    id: 2,
+                    company: 'Amazon',
+                    category: 'Behavioral',
+                    level: 'Junior',
+                    question: 'Tell me about a time when you found a critical bug before release.',
+                    candidateAnswer: 'I found a payment bug and told my manager. We delayed the release.',
+                    idealAnswer: 'Use STAR format: Situation (2 days before release), bug impact (payment failure), actions (documented P0, created steps), communication (risk assessment), outcome (hotfix in 4 hours, added tests).',
+                    keyTerms: 'STAR method, impact analysis, stakeholder communication, risk mitigation',
+                    mistakes: 'Too vague, no metrics, no communication strategy',
+                    score: 4.2
+                },
+                {
+                    id: 3,
+                    company: 'Meta',
+                    category: 'API Testing',
+                    level: 'Mid',
+                    question: 'How do you test REST APIs?',
+                    candidateAnswer: 'I use Postman to send requests and check responses.',
+                    idealAnswer: 'Layered approach: (1) Manual exploration with Postman, (2) Automated tests using RestAssured, (3) Contract testing with Pact, (4) Performance testing. Validate: status codes, schema, auth, error handling, rate limiting.',
+                    keyTerms: 'REST principles, status codes, schema validation, authentication',
+                    mistakes: 'Only testing happy path, not validating schema',
+                    score: 6.5
+                },
+                {
+                    id: 4,
+                    company: 'Netflix',
+                    category: 'SQL',
+                    level: 'Senior',
+                    question: 'How would you validate data integrity during database migration?',
+                    candidateAnswer: 'I would write SQL queries to compare data and check if counts match.',
+                    idealAnswer: 'Multi-layered: (1) Row count comparison, (2) Checksum validation, (3) Sample record comparison, (4) Referential integrity checks, (5) Aggregate validation (SUM, AVG, COUNT), (6) Automate with Python scripts.',
+                    keyTerms: 'data integrity, checksum, referential integrity, ETL validation',
+                    mistakes: 'Only comparing counts, not checking data quality',
+                    score: 5.8
+                },
+                {
+                    id: 5,
+                    company: 'Spotify',
+                    category: 'Manual Testing',
+                    level: 'Junior',
+                    question: 'How do you prioritize testing when you have limited time?',
+                    candidateAnswer: 'I test the most important features first.',
+                    idealAnswer: 'Risk-based prioritization: (1) Critical user journeys, (2) High-impact areas, (3) Recent code changes, (4) Integration points, (5) Smoke tests for core functionality. Document what was tested vs skipped.',
+                    keyTerms: 'risk-based testing, critical path, smoke testing, impact analysis',
+                    mistakes: 'No clear criteria, vague prioritization',
+                    score: 7.0
+                }
+            ]);
+
+            const [expanded, setExpanded] = useState([]);
+            const [editingId, setEditingId] = useState(null);
+            const [editForm, setEditForm] = useState({});
+            const [showAddModal, setShowAddModal] = useState(false);
+            const [newEntry, setNewEntry] = useState({
+                company: '',
+                category: '',
+                level: '',
+                question: '',
+                candidateAnswer: '',
+                idealAnswer: '',
+                keyTerms: '',
+                mistakes: '',
+                score: 5
+            });
+
+            const toggleExpand = (id) => {
+                setExpanded(prev => 
+                    prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+                );
+            };
+
+            const startEdit = (entry) => {
+                setEditingId(entry.id);
+                setEditForm(entry);
+            };
+
+            const cancelEdit = () => {
+                setEditingId(null);
+                setEditForm({});
+            };
+
+            const saveEdit = () => {
+                setEntries(prev => prev.map(e => e.id === editingId ? editForm : e));
+                setEditingId(null);
+                setEditForm({});
+            };
+
+            const deleteEntry = (id) => {
+                if (confirm('Delete this question?')) {
+                    setEntries(prev => prev.filter(e => e.id !== id));
+                }
+            };
+
+            const addNewEntry = () => {
+                const entry = {
+                    ...newEntry,
+                    id: Math.max(...entries.map(e => e.id), 0) + 1
+                };
+                setEntries(prev => [...prev, entry]);
+                setShowAddModal(false);
+                setNewEntry({
+                    company: '',
+                    category: '',
+                    level: '',
+                    question: '',
+                    candidateAnswer: '',
+                    idealAnswer: '',
+                    keyTerms: '',
+                    mistakes: '',
+                    score: 5
+                });
+            };
+
+            const exportCSV = () => {
+                const headers = ['Company', 'Category', 'Level', 'Question', 'Candidate Answer', 'Ideal Answer', 'Key Terms', 'Common Mistakes', 'Score'];
+                const rows = entries.map(e => [
+                    e.company,
+                    e.category,
+                    e.level,
+                    e.question,
+                    e.candidateAnswer,
+                    e.idealAnswer,
+                    e.keyTerms,
+                    e.mistakes,
+                    e.score
+                ]);
+                
+                const csv = [headers, ...rows].map(row => 
+                    row.map(cell => {
+                        const cellStr = String(cell || '').replace(/"/g, '""');
+                        return `"${cellStr}"`;
+                    }).join(',')
+                ).join('\r\n');
+
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                const url = URL.createObjectURL(blob);
+                
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'qa_interview_guide.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            const getScoreColor = (score) => {
+                if (score >= 7) return 'bg-green-100 text-green-800';
+                if (score >= 5) return 'bg-yellow-100 text-yellow-800';
+                return 'bg-red-100 text-red-800';
+            };
+
+            return (
+                <div className="min-h-screen bg-gray-50 p-2 sm:p-6">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-4 sm:mb-6">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
+                                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">QA Interview Study Guide</h1>
+                                <div className="flex gap-2 sm:gap-3">
+                                    <button
+                                        onClick={() => setShowAddModal(true)}
+                                        className="flex items-center gap-1 sm:gap-2 bg-green-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-green-700 text-sm sm:text-base"
+                                    >
+                                        <Plus size={18} />
+                                        <span className="hidden sm:inline">Add Question</span>
+                                        <span className="sm:hidden">Add</span>
+                                    </button>
+                                    <button
+                                        onClick={exportCSV}
+                                        className="flex items-center gap-1 sm:gap-2 bg-indigo-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-indigo-700 text-sm sm:text-base"
+                                    >
+                                        <Download size={18} />
+                                        <span className="hidden sm:inline">Export CSV</span>
+                                        <span className="sm:hidden">Export</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <p className="text-gray-600 text-sm">Tap any question to expand • Edit or delete using action buttons</p>
+                        </div>
+
+                        <div className="space-y-3 sm:space-y-4">
+                            {entries.map((entry) => (
+                                <div key={entry.id} className="bg-white rounded-lg shadow overflow-hidden">
+                                    {editingId === entry.id ? (
+                                        <div className="p-4 bg-yellow-50">
+                                            <div className="space-y-3">
+                                                <div className="grid grid-cols-2 gap-3">
+                                                    <div>
+                                                        <label className="block text-xs font-semibold mb-1">Company</label>
+                                                        <input
+                                                            type="text"
+                                                            value={editForm.company}
+                                                            onChange={(e) => setEditForm({...editForm, company: e.target.value})}
+                                                            className="w-full border rounded px-2 py-1 text-sm"
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className="block text-xs font-semibold mb-1">Score</label>
+                                                        <input
+                                                            type="number"
+                                                            value={editForm.score}
+                                                            onChange={(e) => setEditForm({...editForm, score: parseFloat(e.target.value)})}
+                                                            className="w-full border rounded px-2 py-1 text-sm"
+                                                            min="0"
+                                                            max="10"
+                                                            step="0.1"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                
+                                                <div>
+                                                    <label className="block text-xs font-semibold mb-1">Question</label>
+                                                    <textarea
+                                                        value={editForm.question}
+                                                        onChange={(e) => setEditForm({...editForm, question: e.target.value})}
+                                                        className="w-full border rounded px-2 py-1 text-sm"
+                                                        rows="2"
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className="block text-xs font-semibold mb-1">Candidate Answer</label>
+                                                    <textarea
+                                                        value={editForm.candidateAnswer}
+                                                        onChange={(e) => setEditForm({...editForm, candidateAnswer: e.target.value})}
+                                                        className="w-full border rounded px-2 py-1 text-sm"
+                                                        rows="2"
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className="block text-xs font-semibold mb-1">Ideal Answer</label>
+                                                    <textarea
+                                                        value={editForm.idealAnswer}
+                                                        onChange={(e) => setEditForm({...editForm, idealAnswer: e.target.value})}
+                                                        className="w-full border rounded px-2 py-1 text-sm"
+                                                        rows="2"
+                                                    />
+                                                </div>
+
+                                                <div className="flex gap-2 pt-2">
+                                                    <button
+                                                        onClick={saveEdit}
+                                                        className="flex-1 flex items-center justify-center gap-2 bg-green-600 text-white py-2 rounded hover:bg-green-700"
+                                                    >
+                                                        <Save size={16} />
+                                                        Save
+                                                    </button>
+                                                    <button
+                                                        onClick={cancelEdit}
+                                                        className="flex-1 flex items-center justify-center gap-2 bg-gray-600 text-white py-2 rounded hover:bg-gray-700"
+                                                    >
+                                                        <X size={16} />
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div 
+                                                className="p-4 cursor-pointer"
+                                                onClick={() => toggleExpand(entry.id)}
+                                            >
+                                                <div className="flex items-start justify-between mb-3">
+                                                    <div className="flex-1">
+                                                        <div className="flex items-center gap-2 mb-2">
+                                                            {expanded.includes(entry.id) ? 
+                                                                <ChevronDown size={20} className="text-indigo-600 flex-shrink-0" /> : 
+                                                                <ChevronRight size={20} className="text-gray-400 flex-shrink-0" />
+                                                            }
+                                                            <span className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-semibold">
+                                                                {entry.company}
+                                                            </span>
+                                                        </div>
+                                                        <h3 className="font-semibold text-gray-900 text-sm sm:text-base mb-2">{entry.question}</h3>
+                                                        <div className="flex flex-wrap gap-2 mb-2">
+                                                            <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">{entry.category}</span>
+                                                            <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">{entry.level}</span>
+                                                            <span className={`px-2 py-1 rounded text-xs font-bold ${getScoreColor(entry.score)}`}>
+                                                                {entry.score}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="space-y-3 text-sm">
+                                                    <div>
+                                                        <div className="font-semibold text-gray-700 mb-1">Candidate Answer:</div>
+                                                        <p className="text-gray-600">{entry.candidateAnswer}</p>
+                                                    </div>
+                                                    <div>
+                                                        <div className="font-semibold text-gray-700 mb-1">Ideal Answer:</div>
+                                                        <p className="text-gray-600">{entry.idealAnswer}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {expanded.includes(entry.id) && (
+                                                <div className="border-t bg-gray-50 p-4 space-y-3">
+                                                    <div className="bg-white rounded p-3">
+                                                        <h4 className="font-bold text-indigo-900 text-sm mb-2">Key Terms</h4>
+                                                        <p className="text-gray-800 text-sm">{entry.keyTerms}</p>
+                                                    </div>
+                                                    <div className="bg-white rounded p-3">
+                                                        <h4 className="font-bold text-red-900 text-sm mb-2">Common Mistakes</h4>
+                                                        <p className="text-gray-800 text-sm">{entry.mistakes}</p>
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            <div className="border-t p-3 flex gap-2">
+                                                <button
+                                                    onClick={() => startEdit(entry)}
+                                                    className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 text-sm"
+                                                >
+                                                    <Edit2 size={16} />
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => deleteEntry(entry.id)}
+                                                    className="flex-1 flex items-center justify-center gap-2 bg-red-600 text-white py-2 rounded hover:bg-red-700 text-sm"
+                                                >
+                                                    <Trash2 size={16} />
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {showAddModal && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                            <div className="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                                <div className="bg-green-600 text-white p-4 rounded-t-lg sticky top-0">
+                                    <h2 className="text-lg sm:text-xl font-bold">Add New Interview Question</h2>
+                                </div>
+                                
+                                <div className="p-4 sm:p-6 space-y-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-semibold mb-1">Company</label>
+                                            <input
+                                                type="text"
+                                                value={newEntry.company}
+                                                onChange={(e) => setNewEntry({...newEntry, company: e.target.value})}
+                                                className="w-full border rounded px-3 py-2 text-sm"
+                                                placeholder="e.g., Google"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-semibold mb-1">Category</label>
+                                            <input
+                                                type="text"
+                                                value={newEntry.category}
+                                                onChange={(e) => setNewEntry({...newEntry, category: e.target.value})}
+                                                className="w-full border rounded px-3 py-2 text-sm"
+                                                placeholder="e.g., API Testing"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-semibold mb-1">Level</label>
+                                            <select
+                                                value={newEntry.level}
+                                                onChange={(e) => setNewEntry({...newEntry, level: e.target.value})}
+                                                className="w-full border rounded px-3 py-2 text-sm"
+                                            >
+                                                <option value="">Select...</option>
+                                                <option>Junior</option>
+                                                <option>Mid</option>
+                                                <option>Senior</option>
+                                                <option>Lead</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-semibold mb-1">Score (0-10)</label>
+                                            <input
+                                                type="number"
+                                                value={newEntry.score}
+                                                onChange={(e) => setNewEntry({...newEntry, score: parseFloat(e.target.value)})}
+                                                className="w-full border rounded px-3 py-2 text-sm"
+                                                min="0"
+                                                max="10"
+                                                step="0.1"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold mb-1">Question</label>
+                                        <textarea
+                                            value={newEntry.question}
+                                            onChange={(e) => setNewEntry({...newEntry, question: e.target.value})}
+                                            className="w-full border rounded px-3 py-2 text-sm"
+                                            rows="2"
+                                            placeholder="What was the interview question?"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold mb-1">Candidate Answer</label>
+                                        <textarea
+                                            value={newEntry.candidateAnswer}
+                                            onChange={(e) => setNewEntry({...newEntry, candidateAnswer: e.target.value})}
+                                            className="w-full border rounded px-3 py-2 text-sm"
+                                            rows="2"
+                                            placeholder="Weak or typical answer..."
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold mb-1">Ideal Answer</label>
+                                        <textarea
+                                            value={newEntry.idealAnswer}
+                                            onChange={(e) => setNewEntry({...newEntry, idealAnswer: e.target.value})}
+                                            className="w-full border rounded px-3 py-2 text-sm"
+                                            rows="2"
+                                            placeholder="Strong, comprehensive answer..."
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold mb-1">Key Terms</label>
+                                        <input
+                                            type="text"
+                                            value={newEntry.keyTerms}
+                                            onChange={(e) => setNewEntry({...newEntry, keyTerms: e.target.value})}
+                                            className="w-full border rounded px-3 py-2 text-sm"
+                                            placeholder="Important terms"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold mb-1">Common Mistakes</label>
+                                        <input
+                                            type="text"
+                                            value={newEntry.mistakes}
+                                            onChange={(e) => setNewEntry({...newEntry, mistakes: e.target.value})}
+                                            className="w-full border rounded px-3 py-2 text-sm"
+                                            placeholder="What to avoid"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="bg-gray-50 p-4 rounded-b-lg flex gap-3 sticky bottom-0">
+                                    <button
+                                        onClick={() => setShowAddModal(false)}
+                                        className="flex-1 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-sm"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={addNewEntry}
+                                        disabled={!newEntry.company || !newEntry.question}
+                                        className="flex-1 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:bg-gray-300 text-sm"
+                                    >
+                                        Add Question
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        ReactDOM.render(<QAInterviewTable />, document.getElementById('root'));
+    </script>
+</body>
+</html>
