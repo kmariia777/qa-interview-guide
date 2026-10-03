@@ -141,6 +141,319 @@
                     mistakes: 'No clear criteria, vague prioritization',
                     score: 7.0
                 }
+            
+                ,
+                {
+                    id: 6,
+                    company: 'General',
+                    category: 'Automation',
+                    level: 'Senior',
+                    question: 'Explain your automation framework structure.',
+                    candidateAnswer: 'A typical framework has a config file, page objects for each screen, test files organized by feature, reusable fixtures for setup like login, and reports. Tests run automatically on every code change.',
+                    idealAnswer: 'The framework I know is Playwright-based. A config file (playwright.config.ts) sets browsers, timeouts, and reporters. Each screen of the app gets a page-object class holding its locators and actions, so tests stay readable and UI changes are fixed in one place. Test files live in a tests folder organized by feature. Fixtures handle reusable setup like login and test data. The whole suite runs in CI on every pull request, with an HTML report on failures.',
+                    keyTerms: 'page object model, config, fixtures, CI, locators',
+                    mistakes: 'Listing tools without explaining how the parts connect',
+                    score: 5
+                }
+                ,
+                {
+                    id: 7,
+                    company: 'General',
+                    category: 'Playwright',
+                    level: 'Senior',
+                    question: 'What is Auto-Wait in Playwright?',
+                    candidateAnswer: 'Playwright automatically waits for an element to be ready — visible, stable, clickable — before acting on it, so you do not need manual sleeps.',
+                    idealAnswer: 'Auto-wait means that before every action — click, fill, check — Playwright performs actionability checks: the element must be attached to the DOM, visible, stable (not moving), and enabled. Only then does it act. So page.click("Submit") waits on its own, and tests do not need hard-coded sleeps, which makes them faster and far less flaky.',
+                    keyTerms: 'actionability checks, visible, stable, enabled, no hard sleeps',
+                    mistakes: 'Confusing it with explicit or implicit waits from Selenium',
+                    score: 5
+                }
+                ,
+                {
+                    id: 8,
+                    company: 'General',
+                    category: 'Automation',
+                    level: 'Senior',
+                    question: 'Write JavaScript code to count the occurrence of each character in a string.',
+                    candidateAnswer: 'function countChars(str) { const counts = {}; for (const ch of str) { counts[ch] = (counts[ch] || 0) + 1; } return counts; }',
+                    idealAnswer: 'function countChars(str) {\n  const counts = {};\n  for (const ch of str) {\n    counts[ch] = (counts[ch] || 0) + 1;\n  }\n  return counts;\n}\n// countChars(\'hello\') -> { h: 1, e: 1, l: 2, o: 1 }\nOne loop, one object used as a map: for each character, bump its counter, defaulting to zero.',
+                    keyTerms: 'object as map, loop, increment',
+                    mistakes: 'Overcomplicating it — a plain object and one loop is the answer',
+                    score: 5
+                }
+                ,
+                {
+                    id: 9,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'Explain the Agile methodology you follow.',
+                    candidateAnswer: 'Two-week sprints: planning, daily standups, testing within the sprint, and a retro. QA joins from refinement onward so we catch gaps early.',
+                    idealAnswer: 'We work in two-week sprints. Sprint planning picks the stories, daily standups surface blockers, and I join refinement early so unclear requirements get fixed before coding starts. During the sprint I test completed stories, log bugs in Jira, and retest fixes. We close with a demo and a retrospective where we fix what is not working in the process.',
+                    keyTerms: 'sprints, standups, refinement, retro, shift-left',
+                    mistakes: 'Describing waterfall steps; saying QA only tests at the end',
+                    score: 5
+                }
+                ,
+                {
+                    id: 10,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'How do you create effective test data?',
+                    candidateAnswer: 'Cover valid, invalid, boundary, and edge values; reuse a small set of known accounts; never use real customer data; document the preconditions.',
+                    idealAnswer: 'I aim for small and representative: a handful of users covering each role and permission level, plus valid, invalid, boundary, and edge-case values for the feature under test. I never use real customer data — masked or generated data only. Every test case lists its data preconditions so anyone can set it up and rerun it.',
+                    keyTerms: 'boundary values, masked data, preconditions, reusable accounts',
+                    mistakes: 'Testing only the happy path; using production data with PII',
+                    score: 5
+                }
+                ,
+                {
+                    id: 11,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'How do you decide bug severity and priority?',
+                    candidateAnswer: 'Severity is impact on the user — I set it. Priority is business urgency — set together with the product owner.',
+                    idealAnswer: 'Severity measures impact: does it block the user, corrupt data, or is it cosmetic? I assign severity myself. Priority measures urgency: what must be fixed first for this release — that is a business call, so I discuss it with the product owner. A cosmetic typo on the homepage can be high priority before launch, while a severe crash in an unused feature can wait.',
+                    keyTerms: 'severity = impact, priority = urgency, product owner',
+                    mistakes: 'Mixing the two up; setting priority alone',
+                    score: 5
+                }
+                ,
+                {
+                    id: 12,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'How do you prioritize bugs before a release?',
+                    candidateAnswer: 'Blockers and criticals in core flows first, then highs in changed areas, then new-feature bugs; cosmetic issues get deferred tickets.',
+                    idealAnswer: 'First: blockers and critical bugs in core user flows — anything that stops checkout, login, or corrupts data. Second: high-severity bugs in areas touched by this release. Third: bugs in the new features being shipped. Cosmetic and edge-case bugs get deferred to the backlog with proper tickets. I review the list with the team so the release decision is based on risk, not gut feeling.',
+                    keyTerms: 'risk-based, blockers first, release sign-off',
+                    mistakes: 'Trying to fix everything; no clear ordering',
+                    score: 5
+                }
+                ,
+                {
+                    id: 13,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'How do you decide which test cases belong in Smoke vs Regression?',
+                    candidateAnswer: 'Smoke is the 15-minute "is the build testable" check on core flows. Regression is the deeper re-test of everything the change could affect.',
+                    idealAnswer: 'Smoke tests answer one question: is this build stable enough to test? A short set — login, key flows, nothing broken end-to-end — about 15 minutes. Regression goes deeper: I re-run all tests for the areas the change touched, plus the critical paths, before release. Smoke runs on every build; regression runs before release.',
+                    keyTerms: 'build verification, critical paths, before release',
+                    mistakes: 'Putting hundreds of cases in smoke; skipping regression on "small" changes',
+                    score: 5
+                }
+                ,
+                {
+                    id: 14,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'What is Regression Testing and when do you perform it?',
+                    candidateAnswer: 'Re-testing what already worked to catch breakage from new changes. Before every release, after fixes, and after integrations change.',
+                    idealAnswer: 'Regression testing is re-running previously passing tests to make sure new code did not break existing functionality. I run it before every release, after every bug fix (at least the affected area), and whenever integrations, dependencies, or shared components change.',
+                    keyTerms: 'previously passing, new changes, before release',
+                    mistakes: 'Only testing the new feature and assuming the rest is fine',
+                    score: 5
+                }
+                ,
+                {
+                    id: 15,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'Explain Boundary Value Analysis with an example.',
+                    candidateAnswer: 'Test the edges: just below, at, and just above each limit. Age 18-65? Test 17, 18, 65, 66.',
+                    idealAnswer: 'Boundary Value Analysis targets the edges of input ranges, because that is where bugs hide: off-by-one errors, wrong comparison operators. If a field accepts ages 18 to 65, I test 17, 18, 65, and 66 — just below the minimum, the minimum, the maximum, and just above it.',
+                    keyTerms: 'edges, off-by-one, min/max',
+                    mistakes: 'Only testing the middle values; forgetting just-outside values',
+                    score: 5
+                }
+                ,
+                {
+                    id: 16,
+                    company: 'General',
+                    category: 'Playwright',
+                    level: 'Senior',
+                    question: 'How do you handle file upload and download in Playwright?',
+                    candidateAnswer: 'Upload with setInputFiles on the file input; download by waiting for the download event and saving the file.',
+                    idealAnswer: 'For upload, point Playwright at the file input: await page.setInputFiles("input[type=file]", "path/to/file") — no OS dialog needed. If the UI uses a custom button, click it and use the filechooser event. For download: await Promise.all([page.waitForEvent("download"), page.click("Export")]), then download.saveAs("path"), or read it with download.path() to assert on the contents.',
+                    keyTerms: 'setInputFiles, filechooser, waitForEvent(download)',
+                    mistakes: 'Trying to automate the OS file dialog — Playwright bypasses it',
+                    score: 5
+                }
+                ,
+                {
+                    id: 17,
+                    company: 'General',
+                    category: 'Automation',
+                    level: 'Senior',
+                    question: 'Write a pseudocode to convert a date from one format to another.',
+                    candidateAnswer: 'INPUT dateString, fromFormat, toFormat. Split the string by separators, map parts to day/month/year positions, substitute into toFormat, return it.',
+                    idealAnswer: 'INPUT dateString, fromFormat, toFormat\nparts = SPLIT dateString by the separators in fromFormat\nday, month, year = MAP parts to their positions in fromFormat\noutput = toFormat with day, month, year substituted in\nRETURN output\n\nExample: \'31/12/2026\' with fromFormat \'DD/MM/YYYY\' -> \'2026-12-31\'',
+                    keyTerms: 'split, map positions, substitute',
+                    mistakes: 'Hardcoding one format; not handling the separator',
+                    score: 5
+                }
+                ,
+                {
+                    id: 18,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'What would you do if a developer says, "This bug is not reproducible"?',
+                    candidateAnswer: 'Re-run it myself, gather everything — steps, env, build, data, logs — then walk them through it live or with a recording. I never close it without evidence.',
+                    idealAnswer: 'First I reproduce it again on my side and collect everything: exact steps, environment, build number, test data, browser, and logs. I try variations to find the trigger. Then I walk the developer through it live or send a screen recording — "not reproducible" usually means missing context, not a fake bug. If we truly cannot reproduce it, I keep the ticket open with all my notes instead of closing it.',
+                    keyTerms: 'evidence, logs, screen recording, keep ticket open',
+                    mistakes: 'Arguing without new evidence; silently closing the bug',
+                    score: 5
+                }
+                ,
+                {
+                    id: 19,
+                    company: 'General',
+                    category: 'Automation',
+                    level: 'Senior',
+                    question: 'How do you decide what to automate and what to test manually?',
+                    candidateAnswer: 'Automate stable, repetitive, high-value checks — smoke, regression, data-driven. Keep manual for new, exploratory, visual, or fast-changing areas.',
+                    idealAnswer: 'I automate what is stable, repetitive, and high-value: smoke tests, regression of core flows, and data-driven checks. I keep manual for what changes often or needs human judgment: new features, exploratory testing, usability, and visual checks. The rule is simple: if automating it costs more to build and maintain than it saves, it stays manual.',
+                    keyTerms: 'ROI, stable vs changing, human judgment',
+                    mistakes: 'Saying "automate everything" — or automating brand-new unstable features',
+                    score: 5
+                }
+                ,
+                {
+                    id: 20,
+                    company: 'General',
+                    category: 'Automation',
+                    level: 'Senior',
+                    question: 'Explain your CI/CD execution setup. How do you identify and handle flaky tests?',
+                    candidateAnswer: 'Smoke runs on every commit, full regression nightly and pre-release; the build fails on critical failures. Flaky tests get quarantined after I confirm they pass on rerun, then fixed at the root cause.',
+                    idealAnswer: 'CI/CD: on every pull request, CI runs the smoke suite against staging; the full regression runs nightly and before release. Results post to the team channel, and the build fails if critical tests fail — nothing ships red. Flaky tests: I spot them by failures that pass on rerun. I quarantine them out of the main suite so they stop blocking releases, then fix the root cause — usually timing or shared test data — and only promote them back when they are stable.',
+                    keyTerms: 'CI gates, smoke per PR, quarantine flaky',
+                    mistakes: 'Letting flaky tests keep failing the build; adding sleeps instead of fixing root causes',
+                    score: 5
+                }
+                ,
+                {
+                    id: 21,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'Explain your application/project.',
+                    candidateAnswer: 'I am the QA owner for a FinTech lending web app: I test loan applications, payments, and releases end-to-end, and own the release checklist and regression.',
+                    idealAnswer: 'I am the QA owner for a FinTech lending web application. I test the full flow — loan applications, document upload, payments, account management — end to end: functional, integration, API, and UAT. I own the release checklist and regression plan, and I sign off each release based on risk. It is a regulated domain, so data accuracy and audit trails matter a lot.',
+                    keyTerms: 'FinTech, end-to-end, release ownership, regulated',
+                    mistakes: 'Rambling feature list — focus on what YOU do and the domain risks',
+                    score: 5
+                }
+                ,
+                {
+                    id: 22,
+                    company: 'General',
+                    category: 'Behavioral',
+                    level: 'Senior',
+                    question: 'Tell me about a challenging bug you found and how you handled it.',
+                    candidateAnswer: 'Use STAR with a real example of yours — e.g. a data-dependent bug: isolated the pattern, reproduced it, documented steps, worked with the dev on the fix, added a regression case.',
+                    idealAnswer: 'Use STAR with a real example — swap in your own: Situation: in UAT, a payment total was off by a cent, but only for split payments processed on weekends. Task: find the pattern. Action: I tested combinations and found a rounding rule applied per installment instead of per total. I documented exact steps, data, and the calculation, then walked the developer through it. Result: they fixed the rounding logic, and I added a regression case for split-payment totals. Lesson: when a bug is intermittent, the data pattern is usually the trigger — isolate that first.',
+                    keyTerms: 'STAR, isolate the pattern, regression case',
+                    mistakes: 'Vague story with no steps or outcome; taking sole credit',
+                    score: 5
+                }
+                ,
+                {
+                    id: 23,
+                    company: 'General',
+                    category: 'Automation',
+                    level: 'Senior',
+                    question: 'How do you make automation tests stable and reliable?',
+                    candidateAnswer: 'Stable locators, auto-wait instead of sleeps, independent tests with isolated data, and reruns in CI to catch flakiness.',
+                    idealAnswer: 'Four things. One: stable locators — data-testid attributes over fragile XPath. Two: rely on auto-wait and assertions with retries instead of hard sleeps. Three: keep every test independent with its own test data, so one failure cannot cascade. Four: run the suite in CI on every commit so flaky tests surface fast and get quarantined and fixed instead of ignored.',
+                    keyTerms: 'data-testid, no sleeps, independent, CI',
+                    mistakes: 'Thread.sleep everywhere; tests depending on each other’s data',
+                    score: 5
+                }
+                ,
+                {
+                    id: 24,
+                    company: 'General',
+                    category: 'AI QA',
+                    level: 'Senior',
+                    question: 'Which AI tools do you use in your day-to-day QA work?',
+                    candidateAnswer: 'An AI assistant for drafting test cases, generating test data ideas, and polishing bug reports — I review everything; it speeds up prep, not judgment.',
+                    idealAnswer: 'I use an AI assistant daily: drafting test cases from requirements, brainstorming edge cases and test data, summarizing long specs, and tightening up bug reports. But I review everything it produces and I execute all tests myself. It makes prep faster — it does not replace testing judgment or exploratory thinking.',
+                    keyTerms: 'test case drafts, edge cases, human review',
+                    mistakes: 'Claiming AI does the testing; not mentioning review',
+                    score: 5
+                }
+                ,
+                {
+                    id: 25,
+                    company: 'General',
+                    category: 'AI QA',
+                    level: 'Senior',
+                    question: 'How are you using MCP servers or Playwright agents in automation?',
+                    candidateAnswer: 'Honestly, I am exploring them — not in production yet. The idea: AI drives the browser via Playwright to generate or run tests from plain language.',
+                    idealAnswer: 'Honestly, I am not using them in production yet — I am exploring them. The concept: an MCP server exposes Playwright actions as tools, so an AI agent can drive the browser, explore the app, and generate or run tests from plain-language instructions. I have been following how teams use it for test generation and self-healing locators. It is an area I am actively learning.',
+                    keyTerms: 'honest framing, MCP = browser tools for AI, exploring',
+                    mistakes: 'Bluffing expertise you cannot defend on a follow-up',
+                    score: 5
+                }
+                ,
+                {
+                    id: 26,
+                    company: 'General',
+                    category: 'AI QA',
+                    level: 'Senior',
+                    question: 'What are the limitations of AI tools in testing?',
+                    candidateAnswer: 'They do not understand business risk, they hallucinate, they cannot explore like a human — great assistants, bad owners.',
+                    idealAnswer: 'Four big ones. One: they do not understand business risk or user intent, so they cannot prioritize. Two: they hallucinate — confidently wrong test cases or assertions. Three: they cannot do true exploratory testing or judge visual quality. Four: blindly trusting AI-generated tests creates false confidence. They are excellent assistants and terrible owners — a human always reviews.',
+                    keyTerms: 'hallucination, no risk judgment, human review',
+                    mistakes: 'Saying AI has no limitations; or dismissing AI entirely',
+                    score: 5
+                }
+                ,
+                {
+                    id: 27,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'How do you understand a new application/domain when you join a project?',
+                    candidateAnswer: 'Map the core user journeys, read the requirements, explore hands-on, learn the data and integrations, and find the riskiest areas first.',
+                    idealAnswer: 'I start with the core user journeys — what the app must never break. Then I read the requirements, talk to the product owner about what matters most, and explore the app hands-on. I learn the data model and key integrations, because that is where the nastiest bugs live. Within the first days I can usually name the three riskiest areas — and that is where I focus testing early.',
+                    keyTerms: 'user journeys, data model, riskiest areas first',
+                    mistakes: 'Reading docs for weeks before touching the app',
+                    score: 5
+                }
+                ,
+                {
+                    id: 28,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'How do you ensure there are no critical bugs before a release?',
+                    candidateAnswer: 'You cannot guarantee it — you manage risk: regression on core flows, retest fixes, smoke the release build, and a final risk review before sign-off.',
+                    idealAnswer: 'Honestly, you cannot guarantee zero bugs — you manage risk. My release routine: full regression on core flows, retest of every fixed defect, smoke test on the actual release build, verification on production-like data, and a final go/no-go review with the team. Then I sign off based on known risk, and we monitor closely right after release.',
+                    keyTerms: 'risk management, go/no-go, sign-off',
+                    mistakes: 'Promising "no bugs" — no experienced QA says that',
+                    score: 5
+                }
+                ,
+                {
+                    id: 29,
+                    company: 'General',
+                    category: 'Manual Testing',
+                    level: 'Senior',
+                    question: 'Which testing metrics do you track?',
+                    candidateAnswer: 'Defects by severity, escape rate, pass rate, and open criticals — simple metrics that show whether quality is improving.',
+                    idealAnswer: 'I keep it simple and useful: defects by severity, defect escape rate (bugs found after release — the one that really matters), test execution pass rate, and open critical/high defects as a release-readiness signal. The point of a metric is the decision it drives — if nobody acts on it, I stop tracking it.',
+                    keyTerms: 'escape rate, severity, release readiness',
+                    mistakes: 'Listing vanity metrics like "number of test cases written"',
+                    score: 5
+                }
             ]);
 
             const [expanded, setExpanded] = useState([]);
